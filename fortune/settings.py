@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+# Import Jazzmin settings
+from .jazzmin_settings import JAZZMIN_SETTINGS, JAZZMIN_UI_TWEAKS
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,7 +35,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     # Django core apps
-    'jazzmin',
+    'jazzmin',  # Must be before django.contrib.admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
