@@ -148,18 +148,30 @@ class SiteSettingAdmin(admin.ModelAdmin):
     list_display = ('site_name', 'contact_email', 'updated_at')
     readonly_fields = ('updated_at', 'logo_preview', 'favicon_preview')
     fieldsets = (
-        ('Site Information', {
-            'fields': ('site_name', 'site_description', 'contact_email', 'phone_number', 'address')
+        ('Basic Site Information', {
+            'fields': ('site_name', 'site_name_suffix', 'site_description')
         }),
         ('Media', {
             'fields': ('logo', 'logo_preview', 'favicon', 'favicon_preview')
+        }),
+        ('Contact Information', {
+            'fields': ('contact_email', 'phone_number', 'address')
         }),
         ('Social Media', {
             'fields': ('facebook_url', 'twitter_url', 'instagram_url', 'linkedin_url', 'youtube_url'),
             'classes': ('collapse',)
         }),
+        ('About Section', {
+            'fields': ('about_text', 'about_image', 'mission_text', 'founder_name', 'quote_text', 'years_experience', 'students_count'),
+            'classes': ('collapse',)
+        }),
+        ('CTA Section', {
+            'fields': ('cta_title', 'cta_text', 'cta_button_text', 'cta_image', 'guarantee_icon', 'guarantee_title', 'guarantee_text'),
+            'classes': ('collapse',)
+        }),
         ('Footer', {
-            'fields': ('copyright_text',)
+            'fields': ('footer_tagline', 'newsletter_text', 'privacy_url', 'terms_url', 'cookie_url', 'copyright_text'),
+            'classes': ('collapse',)
         }),
         ('Timestamps', {
             'fields': ('updated_at',),

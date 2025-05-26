@@ -608,7 +608,7 @@
             <div class="container mx-auto px-6 flex justify-between items-center">
                 <div class="flex items-center">
                     <a href="{% url 'app:home' %}" class="text-2xl font-extrabold">
-                        <span :class="darkMode ? 'text-white' : 'text-primary'">Fortune</span><span class="text-green-400">Shade</span>
+                        <span :class="darkMode ? 'text-white' : 'text-primary'">{{ site_settings.site_name|default:'Fortune' }}</span><span class="text-green-400">{{ site_settings.site_name_suffix|default:'Shade' }}</span>
                     </a>
                 </div>
                 
@@ -637,7 +637,7 @@
         <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full z-50 transform translate-x-full transition-transform duration-500 backdrop-filter backdrop-blur-xl" :class="darkMode ? 'bg-primary' : 'bg-white'">
             <div class="flex justify-between items-center p-6" :class="darkMode ? 'border-b border-gray-700' : 'border-b border-gray-200'">
                 <div class="text-2xl font-extrabold" :class="darkMode ? 'text-white' : 'text-primary'">
-                    <span :class="darkMode ? 'text-glow' : ''">Fortune</span><span class="text-green-400" :class="darkMode ? 'neon-effect' : ''">Shade</span>
+                    <span :class="darkMode ? 'text-glow' : ''">{{ site_settings.site_name|default:'Fortune' }}</span><span class="text-green-400" :class="darkMode ? 'neon-effect' : ''">{{ site_settings.site_name_suffix|default:'Shade' }}</span>
                 </div>
                 <button id="closeMenu" :class="darkMode ? 'text-white' : 'text-gray-800'" class="focus:outline-none">
                     <i class="fas fa-times text-2xl"></i>
@@ -735,33 +735,66 @@
                 </div>
                 
                 <div>
-                    <h3 class="text-xl font-bold mb-6">Support</h3>
+                    <h3 class="text-xl font-bold mb-6">Contact Us</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Help Center</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Terms of Service</a></li>
+                        {% if site_settings.contact_email %}
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-gray-400"></i>
+                            <a href="mailto:{{ site_settings.contact_email }}" class="text-gray-400 hover:text-green-400 transition-colors duration-300">{{ site_settings.contact_email }}</a>
+                        </li>
+                        {% endif %}
+                        
+                        {% if site_settings.phone_number %}
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2 text-gray-400"></i>
+                            <a href="tel:{{ site_settings.phone_number }}" class="text-gray-400 hover:text-green-400 transition-colors duration-300">{{ site_settings.phone_number }}</a>
+                        </li>
+                        {% endif %}
+                        
+                        {% if site_settings.address %}
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">{{ site_settings.address|safe }}</span>
+                        </li>
+                        {% endif %}
+                        
+                        <li><a href="#contact" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact Form</a></li>
                         <li><a href="{% url 'app:home' %}#faq" class="text-gray-400 hover:text-green-400 transition-colors duration-300">FAQ</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h3 class="text-xl font-bold mb-6">Newsletter</h3>
-                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and insights.</p>
+                    <p class="text-gray-400 mb-4">{% if site_settings.newsletter_text %}{{ site_settings.newsletter_text }}{% else %}Subscribe to our newsletter for the latest updates and insights.{% endif %}</p>
                     <form action="#" method="POST" class="flex flex-col space-y-3">
-                        <input type="email" placeholder="Your email address" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-400">
+                        {% csrf_token %}
+                        <input type="email" name="email" placeholder="Your email address" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-400" required>
                         <button type="submit" class="btn-primary">Subscribe</button>
                     </form>
                 </div>
             </div>
             <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-400 text-sm">
-                    &copy; {% now "Y" %} {{ site_settings.site_name|default:"FortuneShade" }}. All rights reserved.
+                    &copy; {% now "Y" %} {{ site_settings.site_name|default:"FortuneShade" }}{% if site_settings.site_name_suffix %}<span class="text-green-400">{{ site_settings.site_name_suffix }}</span>{% endif %}. All rights reserved.
                 </p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
+                    {% if site_settings.privacy_url %}
+                    <a href="{{ site_settings.privacy_url }}" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Privacy Policy</a>
+                    {% else %}
                     <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Privacy Policy</a>
+                    {% endif %}
+                    
+                    {% if site_settings.terms_url %}
+                    <a href="{{ site_settings.terms_url }}" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Terms of Service</a>
+                    {% else %}
                     <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Terms of Service</a>
+                    {% endif %}
+                    
+                    {% if site_settings.cookie_url %}
+                    <a href="{{ site_settings.cookie_url }}" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Cookie Policy</a>
+                    {% else %}
                     <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Cookie Policy</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

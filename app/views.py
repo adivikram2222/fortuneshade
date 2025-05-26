@@ -31,7 +31,8 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         
         # Get or create site settings
-        context['site_settings'] = get_site_settings()
+        site_settings = get_site_settings()
+        context['site_settings'] = site_settings
         
         # Get active hero section
         context['hero'] = HeroSection.objects.filter(is_active=True).first()
@@ -55,6 +56,49 @@ class HomeView(TemplateView):
         
         # Get active FAQs
         context['faqs'] = FAQ.objects.filter(is_active=True).order_by('order')
+        
+        # Add about section image from site settings if available
+        if site_settings.about_image:
+            context['about_image'] = site_settings.about_image.url
+        
+        # Create dummy process steps (in a real application, this would be from a model)
+        context['process_steps'] = [
+            {
+                'title': 'Learn The System',
+                'description': 'Begin by mastering our proven trading strategy through our comprehensive course material and video tutorials.',
+                'icon_url': '/api/placeholder/80/80'
+            },
+            {
+                'title': 'Watch & Practice',
+                'description': 'Join our daily live trading sessions to see the strategy in action and practice with our paper trading simulator.',
+                'icon_url': '/api/placeholder/80/80'
+            },
+            {
+                'title': 'Trade & Grow',
+                'description': 'Start trading real capital with the support of our community and mentors, gradually scaling your account as you gain consistency.',
+                'icon_url': '/api/placeholder/80/80'
+            }
+        ]
+        
+        # Create dummy CTA benefits (in a real application, this would be from a model)
+        context['cta_benefits'] = [
+            {
+                'icon_class': 'fas fa-user-tie',
+                'text': 'Expert Mentorship'
+            },
+            {
+                'icon_class': 'fas fa-video',
+                'text': 'Live Trading Sessions'
+            },
+            {
+                'icon_class': 'fas fa-chart-line',
+                'text': 'Proven Trading System'
+            },
+            {
+                'icon_class': 'fas fa-users',
+                'text': 'Supportive Community'
+            }
+        ]
         
         return context
 

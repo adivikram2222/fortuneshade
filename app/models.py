@@ -125,19 +125,51 @@ class FAQ(models.Model):
 
 
 class SiteSetting(models.Model):
+    # Basic Site Information
     site_name = models.CharField(max_length=100, default="FortuneShade")
+    site_name_suffix = models.CharField(max_length=100, blank=True, help_text="Optional suffix for the site name that will be styled differently")
     site_description = models.TextField(blank=True)
     logo = models.ImageField(upload_to='site/', blank=True, null=True)
     favicon = models.ImageField(upload_to='site/', blank=True, null=True)
+    
+    # Contact Information
     contact_email = models.EmailField(default="support@fortuneshade.com")
     phone_number = models.CharField(max_length=20, blank=True)
     address = models.TextField(blank=True)
+    
+    # Social Media Links
     facebook_url = models.URLField(blank=True)
     twitter_url = models.URLField(blank=True)
     instagram_url = models.URLField(blank=True)
     linkedin_url = models.URLField(blank=True)
     youtube_url = models.URLField(blank=True)
+    
+    # About Section
+    about_text = models.TextField(blank=True, help_text="Text for the about section")
+    about_image = models.ImageField(upload_to='site/', blank=True, null=True)
+    mission_text = models.TextField(blank=True, help_text="Mission statement text")
+    founder_name = models.CharField(max_length=100, blank=True)
+    quote_text = models.TextField(blank=True, help_text="Quote text for the about section")
+    years_experience = models.CharField(max_length=50, blank=True, help_text="Years of experience to display")
+    students_count = models.CharField(max_length=50, blank=True, help_text="Number of students/members to display")
+    
+    # Footer Settings
+    footer_tagline = models.TextField(blank=True, help_text="Tagline to display in the footer")
+    newsletter_text = models.TextField(blank=True, help_text="Text for the newsletter signup section")
+    privacy_url = models.URLField(blank=True, help_text="URL to the privacy policy page")
+    terms_url = models.URLField(blank=True, help_text="URL to the terms of service page")
+    cookie_url = models.URLField(blank=True, help_text="URL to the cookie policy page")
     copyright_text = models.CharField(max_length=255, default="© 2025 FortuneShade. All rights reserved.")
+    
+    # CTA Section
+    cta_title = models.CharField(max_length=200, blank=True, help_text="Title for the CTA section")
+    cta_text = models.TextField(blank=True, help_text="Text for the CTA section")
+    cta_button_text = models.CharField(max_length=100, blank=True, help_text="Text for the CTA button")
+    cta_image = models.ImageField(upload_to='site/', blank=True, null=True, help_text="Image for the CTA section")
+    guarantee_icon = models.CharField(max_length=50, blank=True, help_text="Font Awesome icon class for the guarantee icon")
+    guarantee_title = models.CharField(max_length=100, blank=True, help_text="Title for the guarantee badge")
+    guarantee_text = models.CharField(max_length=200, blank=True, help_text="Text for the guarantee badge")
+    
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

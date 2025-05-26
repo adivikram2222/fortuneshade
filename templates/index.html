@@ -127,7 +127,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {% if features %}
                     {% for feature in features %}
-                    <div class="feature-card animate-on-scroll" {% if forloop.counter > 1 %}style="animation-delay: {{ forloop.counter|add:'-1'|multiply:0.2 }}s;"{% endif %}>
+                    <div class="feature-card animate-on-scroll" {% if forloop.counter == 2 %}style="animation-delay: 0.2s;"{% elif forloop.counter == 3 %}style="animation-delay: 0.4s;"{% elif forloop.counter == 4 %}style="animation-delay: 0.6s;"{% elif forloop.counter > 4 %}style="animation-delay: 0.8s;"{% endif %}>
                         <div class="w-14 h-14 rounded-full {{ feature.icon_bg_color|default:'bg-green-100' }} flex items-center justify-center mb-6">
                             <i class="{{ feature.icon_class|default:'fas fa-star' }} text-2xl {{ feature.icon_text_color|default:'text-green-600' }}"></i>
                         </div>
@@ -362,7 +362,7 @@
                 
                 {% if process_steps %}
                     {% for step in process_steps %}
-                    <div class="relative rounded-lg shadow-lg p-8 animate-on-scroll" :class="darkMode ? 'bg-gray-700' : 'bg-white'" {% if forloop.counter > 1 %}style="animation-delay: {{ forloop.counter|add:'-1'|multiply:0.2 }}s;"{% endif %}>
+                    <div class="relative rounded-lg shadow-lg p-8 animate-on-scroll" :class="darkMode ? 'bg-gray-700' : 'bg-white'" {% if forloop.counter == 2 %}style="animation-delay: 0.2s;"{% elif forloop.counter == 3 %}style="animation-delay: 0.4s;"{% elif forloop.counter == 4 %}style="animation-delay: 0.6s;"{% elif forloop.counter > 4 %}style="animation-delay: 0.8s;"{% endif %}>
                         <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
                             {{ forloop.counter }}
                         </div>
@@ -450,7 +450,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {% if testimonials %}
                     {% for testimonial in testimonials %}
-                    <div class="testimonial-card animate-on-scroll" {% if forloop.counter > 1 %}style="animation-delay: {{ forloop.counter|add:'-1'|multiply:0.2 }}s;"{% endif %}>
+                    <div class="testimonial-card animate-on-scroll" {% if forloop.counter == 2 %}style="animation-delay: 0.2s;"{% elif forloop.counter == 3 %}style="animation-delay: 0.4s;"{% elif forloop.counter == 4 %}style="animation-delay: 0.6s;"{% elif forloop.counter > 4 %}style="animation-delay: 0.8s;"{% endif %}>
                         <div class="flex items-center mb-4">
                             {% if testimonial.image %}
                             <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="w-16 h-16 rounded-full">
@@ -461,9 +461,13 @@
                                 <h4 class="font-bold" :class="darkMode ? 'text-white' : ''">{{ testimonial.name }}</h4>
                                 <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">{{ testimonial.position }}</p>
                                 <div class="flex mt-1">
-                                    {% for i in range(testimonial.rating|default:5) %}
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    {% endfor %}
+                                    {% with rating=testimonial.rating|default:5 %}
+                                        {% if rating >= 1 %}<i class="fas fa-star text-yellow-400"></i>{% endif %}
+                                        {% if rating >= 2 %}<i class="fas fa-star text-yellow-400"></i>{% endif %}
+                                        {% if rating >= 3 %}<i class="fas fa-star text-yellow-400"></i>{% endif %}
+                                        {% if rating >= 4 %}<i class="fas fa-star text-yellow-400"></i>{% endif %}
+                                        {% if rating >= 5 %}<i class="fas fa-star text-yellow-400"></i>{% endif %}
+                                    {% endwith %}
                                 </div>
                             </div>
                         </div>
@@ -914,51 +918,66 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="animate-on-scroll">
                     <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                        Ready to Transform Your Trading?
+                        {% if site_settings.cta_title %}{{ site_settings.cta_title }}{% else %}Ready to Transform Your Trading?{% endif %}
                     </h2>
                     <p class="text-lg mb-8 text-gray-300">
-                        Join FortuneShade today and gain access to our proven trading system, live sessions, and supportive community of successful traders.
+                        {% if site_settings.cta_text %}{{ site_settings.cta_text }}{% else %}Join {{ site_settings.site_name|default:'FortuneShade' }} today and gain access to our proven trading system, live sessions, and supportive community of successful traders.{% endif %}
                     </p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
-                                <i class="fas fa-check text-green-400"></i>
+                        {% if cta_benefits %}
+                            {% for benefit in cta_benefits %}
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
+                                    <i class="{{ benefit.icon_class|default:'fas fa-check' }} text-green-400"></i>
+                                </div>
+                                <span class="ml-3">{{ benefit.text }}</span>
                             </div>
-                            <span class="ml-3">Expert Mentorship</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
-                                <i class="fas fa-check text-green-400"></i>
+                            {% endfor %}
+                        {% else %}
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-400"></i>
+                                </div>
+                                <span class="ml-3">Expert Mentorship</span>
                             </div>
-                            <span class="ml-3">Live Trading Sessions</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
-                                <i class="fas fa-check text-green-400"></i>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-400"></i>
+                                </div>
+                                <span class="ml-3">Live Trading Sessions</span>
                             </div>
-                            <span class="ml-3">Proven Trading System</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
-                                <i class="fas fa-check text-green-400"></i>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-400"></i>
+                                </div>
+                                <span class="ml-3">Proven Trading System</span>
                             </div>
-                            <span class="ml-3">Supportive Community</span>
-                        </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-green-400 bg-opacity-20 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-400"></i>
+                                </div>
+                                <span class="ml-3">Supportive Community</span>
+                            </div>
+                        {% endif %}
                     </div>
                     <button class="btn-primary">
-                        Join FortuneShade Today
+                        {% if site_settings.cta_button_text %}{{ site_settings.cta_button_text }}{% else %}Join {{ site_settings.site_name|default:'FortuneShade' }} Today{% endif %}
                     </button>
                 </div>
                 <div class="relative animate-on-scroll">
+                    {% if site_settings.cta_image %}
+                    <img src="{{ site_settings.cta_image.url }}" alt="{{ site_settings.site_name|default:'FortuneShade' }} Platform" class="rounded-lg shadow-2xl">
+                    {% else %}
                     <img src="/api/placeholder/540/400" alt="Trading Platform" class="rounded-lg shadow-2xl">
+                    {% endif %}
                     <div class="absolute -bottom-5 -right-5 p-4 rounded-lg shadow-lg" :class="darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'">
                         <div class="flex items-center">
                             <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center" :class="darkMode ? 'bg-blue-900' : 'bg-blue-100'">
-                                <i class="fas fa-shield-alt" :class="darkMode ? 'text-blue-400' : 'text-blue-600'"></i>
+                                <i class="{{ site_settings.guarantee_icon|default:'fas fa-shield-alt' }}" :class="darkMode ? 'text-blue-400' : 'text-blue-600'"></i>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm font-semibold" :class="darkMode ? 'text-white' : 'text-gray-800'">30-Day Guarantee</p>
-                                <p class="text-xs" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">Try risk-free for 30 days</p>
+                                <p class="text-sm font-semibold" :class="darkMode ? 'text-white' : 'text-gray-800'">{% if site_settings.guarantee_title %}{{ site_settings.guarantee_title }}{% else %}30-Day Guarantee{% endif %}</p>
+                                <p class="text-xs" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">{% if site_settings.guarantee_text %}{{ site_settings.guarantee_text }}{% else %}Try risk-free for 30 days{% endif %}</p>
                             </div>
                         </div>
                     </div>
