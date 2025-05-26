@@ -674,24 +674,51 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div>
                     <div class="text-2xl font-extrabold mb-6">
-                        <span>Fortune</span><span class="text-green-400">Shade</span>
+                        <span>{{ site_settings.site_name|default:'Fortune' }}</span><span class="text-green-400">{{ site_settings.site_name_suffix|default:'Shade' }}</span>
                     </div>
                     <p class="text-gray-400 mb-6">
-                        Empowering traders with cutting-edge tools and strategies to navigate the financial markets with confidence.
+                        {% if site_settings.footer_tagline %}{{ site_settings.footer_tagline }}{% else %}Empowering traders with cutting-edge tools and strategies to navigate the financial markets with confidence.{% endif %}
                     </p>
                     <div class="flex space-x-4">
+                        {% if site_settings.facebook_url %}
+                        <a href="{{ site_settings.facebook_url }}" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        {% else %}
                         <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
                             <i class="fab fa-facebook-f"></i>
                         </a>
+                        {% endif %}
+                        
+                        {% if site_settings.twitter_url %}
+                        <a href="{{ site_settings.twitter_url }}" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        {% else %}
                         <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
                             <i class="fab fa-twitter"></i>
                         </a>
+                        {% endif %}
+                        
+                        {% if site_settings.instagram_url %}
+                        <a href="{{ site_settings.instagram_url }}" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        {% else %}
                         <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
                             <i class="fab fa-instagram"></i>
                         </a>
+                        {% endif %}
+                        
+                        {% if site_settings.linkedin_url %}
+                        <a href="{{ site_settings.linkedin_url }}" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        {% else %}
                         <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </div>
                 

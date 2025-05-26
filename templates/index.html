@@ -11,18 +11,24 @@
                     <span class="text-green-400 font-semibold">Premium Investment Solutions</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                    Master The Markets With FortuneShade
+                    {{ hero.title|default:'Master The Markets With FortuneShade' }}
                 </h1>
                 <p class="text-lg md:text-xl mb-8 text-gray-300 max-w-xl">
-                    Expert guidance, live trading sessions, and a supportive community to help you achieve financial independence through strategic investing and trading.
+                    {{ hero.subtitle|default:'Expert guidance, live trading sessions, and a supportive community to help you achieve financial independence through strategic investing and trading.' }}
                 </p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <button class="btn-primary">
-                        Get Started Today
-                    </button>
-                    <button class="btn-secondary">
+                    <a href="{{ hero.primary_cta_link|default:'#' }}" class="btn-primary">
+                        {{ hero.primary_cta_text|default:'Get Started Today' }}
+                    </a>
+                    {% if hero.secondary_cta_text %}
+                    <a href="{{ hero.secondary_cta_link|default:'#' }}" class="btn-secondary">
+                        <i class="fas fa-play-circle mr-2"></i> {{ hero.secondary_cta_text|default:'Watch Demo' }}
+                    </a>
+                    {% else %}
+                    <a href="#" class="btn-secondary">
                         <i class="fas fa-play-circle mr-2"></i> Watch Demo
-                    </button>
+                    </a>
+                    {% endif %}
                 </div>
                 <div class="mt-12 flex items-center">
                     <div class="flex -space-x-2">
@@ -76,87 +82,122 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="py-16 px-6 bg-white">
+    <section class="py-16 px-6" :class="darkMode ? 'bg-gray-900' : 'bg-white'">
         <div class="container mx-auto">
             <div class="stats-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-white animate-on-scroll">
-                <div class="text-center p-6">
-                    <h3 class="text-4xl font-bold mb-2">97%</h3>
-                    <p class="text-lg text-gray-300">Member Satisfaction</p>
-                </div>
-                <div class="text-center p-6">
-                    <h3 class="text-4xl font-bold mb-2">$35M+</h3>
-                    <p class="text-lg text-gray-300">Trading Volume</p>
-                </div>
-                <div class="text-center p-6">
-                    <h3 class="text-4xl font-bold mb-2">1,250+</h3>
-                    <p class="text-lg text-gray-300">Active Members</p>
-                </div>
-                <div class="text-center p-6">
-                    <h3 class="text-4xl font-bold mb-2">85%</h3>
-                    <p class="text-lg text-gray-300">Success Rate</p>
-                </div>
+                {% if statistics %}
+                    {% for stat in statistics %}
+                    <div class="text-center p-6">
+                        <h3 class="text-4xl font-bold mb-2">{{ stat.value }}</h3>
+                        <p class="text-lg text-gray-300">{{ stat.label }}</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center p-6">
+                        <h3 class="text-4xl font-bold mb-2">97%</h3>
+                        <p class="text-lg text-gray-300">Member Satisfaction</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <h3 class="text-4xl font-bold mb-2">$35M+</h3>
+                        <p class="text-lg text-gray-300">Trading Volume</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <h3 class="text-4xl font-bold mb-2">1,250+</h3>
+                        <p class="text-lg text-gray-300">Active Members</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <h3 class="text-4xl font-bold mb-2">85%</h3>
+                        <p class="text-lg text-gray-300">Success Rate</p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-20 px-6 bg-gray-50">
+    <section id="features" class="py-20 px-6" :class="darkMode ? 'bg-gray-800' : 'bg-gray-50'">
         <div class="container mx-auto">
             <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold">What You'll Get With FortuneShade</h2>
-                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold">What You'll Get With {{ site_settings.site_name|default:'FortuneShade' }}</h2>
+                <p class="mt-4 text-lg max-w-2xl mx-auto" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                     Our comprehensive platform provides everything you need to succeed in today's volatile markets.
                 </p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="feature-card animate-on-scroll">
-                    <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-6">
-                        <i class="fas fa-graduation-cap text-2xl text-green-600"></i>
+                {% if features %}
+                    {% for feature in features %}
+                    <div class="feature-card animate-on-scroll" {% if forloop.counter > 1 %}style="animation-delay: {{ forloop.counter|add:'-1'|multiply:0.2 }}s;"{% endif %}>
+                        <div class="w-14 h-14 rounded-full {{ feature.icon_bg_color|default:'bg-green-100' }} flex items-center justify-center mb-6">
+                            <i class="{{ feature.icon_class|default:'fas fa-star' }} text-2xl {{ feature.icon_text_color|default:'text-green-600' }}"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">{{ feature.title }}</h3>
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-4">
+                            {{ feature.description }}
+                        </p>
+                        {% if feature.description_items %}
+                            <ul class="space-y-2">
+                                {% for item in feature.description_items %}
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-500 mr-2"></i>
+                                    <span>{{ item }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
-                    <h3 class="text-xl font-bold mb-4">Advanced Trading Education</h3>
-                    <p class="text-gray-600 mb-4">
-                        Access our comprehensive curriculum covering technical analysis, risk management, and proprietary trading strategies designed for consistent results.
-                    </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Structured learning path for all levels</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Video tutorials and live demonstrations</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Interactive quizzes and assessments</span>
-                        </li>
-                    </ul>
-                </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="feature-card animate-on-scroll">
+                        <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-6">
+                            <i class="fas fa-graduation-cap text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Advanced Trading Education</h3>
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-4">
+                            Access our comprehensive curriculum covering technical analysis, risk management, and proprietary trading strategies designed for consistent results.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Structured learning path for all levels</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Video tutorials and live demonstrations</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Interactive quizzes and assessments</span>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
                 
+                {% if not features %}
                 <div class="feature-card animate-on-scroll" style="animation-delay: 0.2s;">
                     <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-6">
                         <i class="fas fa-chart-line text-2xl text-blue-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4">Live Trading Sessions</h3>
-                    <p class="text-gray-600 mb-4">
-                        Join our expert traders daily as they analyze markets in real-time, identify high-probability setups, and execute trades with detailed commentary.
+                    <h3 class="text-xl font-bold mb-4">Proprietary Trading Signals</h3>
+                    <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-4">
+                        Receive actionable insights from our team of expert analysts with a proven track record across all major markets and asset classes.
                     </p>
                     <ul class="space-y-2">
                         <li class="flex items-center">
                             <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Daily market analysis and setups</span>
+                            <span>Real-time notifications via mobile app</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Real-time trade execution</span>
+                            <span>Transparent performance tracking</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Interactive Q&A during sessions</span>
+                            <span>Detailed entry and exit strategies</span>
                         </li>
                     </ul>
                 </div>
+                {% endif %}
                 
                 <div class="feature-card animate-on-scroll" style="animation-delay: 0.4s;">
                     <div class="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mb-6">
@@ -258,35 +299,45 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-6 bg-white">
+    <section id="about" class="py-20 px-6" :class="darkMode ? 'bg-gray-900' : 'bg-white'">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="animate-on-scroll">
-                    <img src="/api/placeholder/540/400" alt="FortuneShade Founder" class="rounded-lg shadow-xl">
+                    {% if about_image %}
+                        <img src="{{ about_image }}" alt="{{ site_settings.site_name|default:'FortuneShade' }} Founder" class="rounded-lg shadow-xl">
+                    {% else %}
+                        <img src="/api/placeholder/540/400" alt="{{ site_settings.site_name|default:'FortuneShade' }} Founder" class="rounded-lg shadow-xl">
+                    {% endif %}
                     <div class="mt-6 grid grid-cols-2 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-3xl font-bold text-green-600">10+</p>
-                            <p class="text-gray-600">Years Trading Experience</p>
+                        <div :class="darkMode ? 'bg-gray-800' : 'bg-gray-50'" class="p-4 rounded-lg">
+                            <p class="text-3xl font-bold text-green-600">{% if site_settings.years_experience %}{{ site_settings.years_experience }}{% else %}10+{% endif %}</p>
+                            <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">Years Trading Experience</p>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-3xl font-bold text-green-600">5,000+</p>
-                            <p class="text-gray-600">Students Mentored</p>
+                        <div :class="darkMode ? 'bg-gray-800' : 'bg-gray-50'" class="p-4 rounded-lg">
+                            <p class="text-3xl font-bold text-green-600">{% if site_settings.students_count %}{{ site_settings.students_count }}{% else %}5,000+{% endif %}</p>
+                            <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">Students Mentored</p>
                         </div>
                     </div>
                 </div>
                 <div class="animate-on-scroll">
-                    <h2 class="section-heading text-3xl md:text-4xl font-bold">About FortuneShade</h2>
-                    <p class="text-lg text-gray-600 mb-6">
-                        FortuneShade was founded by Jonathan Blake, a veteran trader with over a decade of experience in global financial markets. After years of trial and error, Jonathan developed a rule-based system that transformed his trading from inconsistent to profitable.
+                    <h2 class="section-heading text-3xl md:text-4xl font-bold" :class="darkMode ? 'text-white' : ''">About {{ site_settings.site_name|default:'FortuneShade' }}</h2>
+                    <p class="text-lg mb-6" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
+                        {% if site_settings.about_text %}{{ site_settings.about_text|safe }}{% else %}
+                        {{ site_settings.site_name|default:'FortuneShade' }} was founded by Jonathan Blake, a veteran trader with over a decade of experience in global financial markets. After years of trial and error, Jonathan developed a rule-based system that transformed his trading from inconsistent to profitable.
+                        {% endif %}
                     </p>
-                    <p class="text-lg text-gray-600 mb-6">
+                    <p class="text-lg mb-6" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
+                        {% if site_settings.mission_text %}{{ site_settings.mission_text|safe }}{% else %}
                         Our mission is simple: to provide traders of all levels with the education, tools, and community they need to achieve consistent profitability in the markets, without the typical hype and unrealistic promises found elsewhere.
+                        {% endif %}
                     </p>
                     <div class="accent-border-left mb-8">
-                        <p class="text-lg font-medium italic text-gray-700">
-                            "Trading isn't about predicting the future—it's about developing a systematic approach to identify high-probability setups and managing risk effectively. That's what we teach at FortuneShade."
+                        <p class="text-lg font-medium italic" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">
+                            {% if site_settings.quote_text %}{{ site_settings.quote_text|safe }}{% else %}
+                            "Trading isn't about predicting the future—it's about developing a systematic approach to identify high-probability setups and managing risk effectively. That's what we teach at {{ site_settings.site_name|default:'FortuneShade' }}."
+                            {% endif %}
                         </p>
-                        <p class="mt-3 font-semibold">— Jonathan Blake, Founder</p>
+                        <p class="mt-3 font-semibold" :class="darkMode ? 'text-white' : ''">— {% if site_settings.founder_name %}{{ site_settings.founder_name }}{% else %}Jonathan Blake{% endif %}, Founder</p>
                     </div>
                     <button class="btn-primary">
                         Learn More About Our Story
@@ -297,11 +348,11 @@
     </section>
 
     <!-- Process Section -->
-    <section id="process" class="py-20 px-6 bg-gray-50">
+    <section id="process" class="py-20 px-6" :class="darkMode ? 'bg-gray-800' : 'bg-gray-50'">
         <div class="container mx-auto">
             <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold">How FortuneShade Works</h2>
-                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold" :class="darkMode ? 'text-white' : ''">How {{ site_settings.site_name|default:'FortuneShade' }} Works</h2>
+                <p class="mt-4 text-lg max-w-2xl mx-auto" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                     Our structured approach helps you develop from a beginner to a confident, consistent trader.
                 </p>
             </div>
@@ -309,50 +360,73 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
                 <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-green-200 -z-10 transform -translate-y-1/2"></div>
                 
-                <div class="relative bg-white rounded-lg shadow-lg p-8 animate-on-scroll">
-                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
-                        1
-                    </div>
-                    <div class="text-center mt-4">
-                        <h3 class="text-xl font-bold mb-4">Learn The System</h3>
-                        <p class="text-gray-600">
-                            Begin by mastering our proven trading strategy through our comprehensive course material and video tutorials.
-                        </p>
-                        <div class="mt-6">
-                            <img src="/api/placeholder/80/80" alt="Strategy Icon" class="mx-auto w-20 h-20">
+                {% if process_steps %}
+                    {% for step in process_steps %}
+                    <div class="relative rounded-lg shadow-lg p-8 animate-on-scroll" :class="darkMode ? 'bg-gray-700' : 'bg-white'" {% if forloop.counter > 1 %}style="animation-delay: {{ forloop.counter|add:'-1'|multiply:0.2 }}s;"{% endif %}>
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
+                            {{ forloop.counter }}
+                        </div>
+                        <div class="text-center mt-4">
+                            <h3 class="text-xl font-bold mb-4" :class="darkMode ? 'text-white' : ''">{{ step.title }}</h3>
+                            <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
+                                {{ step.description }}
+                            </p>
+                            <div class="mt-6">
+                                {% if step.icon_url %}
+                                <img src="{{ step.icon_url }}" alt="{{ step.title }} Icon" class="mx-auto w-20 h-20">
+                                {% else %}
+                                <img src="/api/placeholder/80/80" alt="{{ step.title }} Icon" class="mx-auto w-20 h-20">
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="relative bg-white rounded-lg shadow-lg p-8 animate-on-scroll" style="animation-delay: 0.2s;">
-                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
-                        2
-                    </div>
-                    <div class="text-center mt-4">
-                        <h3 class="text-xl font-bold mb-4">Watch & Practice</h3>
-                        <p class="text-gray-600">
-                            Join our daily live trading sessions to see the strategy in action and practice with our paper trading simulator.
-                        </p>
-                        <div class="mt-6">
-                            <img src="/api/placeholder/80/80" alt="Watching Icon" class="mx-auto w-20 h-20">
+                    {% endfor %}
+                {% else %}
+                    <div class="relative rounded-lg shadow-lg p-8 animate-on-scroll" :class="darkMode ? 'bg-gray-700' : 'bg-white'">
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
+                            1
+                        </div>
+                        <div class="text-center mt-4">
+                            <h3 class="text-xl font-bold mb-4" :class="darkMode ? 'text-white' : ''">Learn The System</h3>
+                            <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
+                                Begin by mastering our proven trading strategy through our comprehensive course material and video tutorials.
+                            </p>
+                            <div class="mt-6">
+                                <img src="/api/placeholder/80/80" alt="Strategy Icon" class="mx-auto w-20 h-20">
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="relative bg-white rounded-lg shadow-lg p-8 animate-on-scroll" style="animation-delay: 0.4s;">
-                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
-                        3
-                    </div>
-                    <div class="text-center mt-4">
-                        <h3 class="text-xl font-bold mb-4">Trade & Grow</h3>
-                        <p class="text-gray-600">
-                            Start trading real capital with the support of our community and mentors, gradually scaling your account as you gain consistency.
-                        </p>
-                        <div class="mt-6">
-                            <img src="/api/placeholder/80/80" alt="Growth Icon" class="mx-auto w-20 h-20">
+                    
+                    <div class="relative rounded-lg shadow-lg p-8 animate-on-scroll" :class="darkMode ? 'bg-gray-700' : 'bg-white'" style="animation-delay: 0.2s;">
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
+                            2
+                        </div>
+                        <div class="text-center mt-4">
+                            <h3 class="text-xl font-bold mb-4" :class="darkMode ? 'text-white' : ''">Watch & Practice</h3>
+                            <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
+                                Join our daily live trading sessions to see the strategy in action and practice with our paper trading simulator.
+                            </p>
+                            <div class="mt-6">
+                                <img src="/api/placeholder/80/80" alt="Watching Icon" class="mx-auto w-20 h-20">
+                            </div>
                         </div>
                     </div>
-                </div>
+                    
+                    <div class="relative rounded-lg shadow-lg p-8 animate-on-scroll" :class="darkMode ? 'bg-gray-700' : 'bg-white'" style="animation-delay: 0.4s;">
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
+                            3
+                        </div>
+                        <div class="text-center mt-4">
+                            <h3 class="text-xl font-bold mb-4" :class="darkMode ? 'text-white' : ''">Trade & Grow</h3>
+                            <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
+                                Start trading real capital with the support of our community and mentors, gradually scaling your account as you gain consistency.
+                            </p>
+                            <div class="mt-6">
+                                <img src="/api/placeholder/80/80" alt="Growth Icon" class="mx-auto w-20 h-20">
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
             
             <div class="text-center mt-16 animate-on-scroll">
@@ -364,93 +438,115 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 px-6 bg-white">
+    <section id="testimonials" class="py-20 px-6" :class="darkMode ? 'bg-gray-900' : 'bg-white'">
         <div class="container mx-auto">
             <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold">Success Stories</h2>
-                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    Hear from our members who have transformed their trading with FortuneShade.
+                <h2 class="text-3xl md:text-4xl font-bold" :class="darkMode ? 'text-white' : ''">What Our Members Say</h2>
+                <p class="mt-4 text-lg max-w-2xl mx-auto" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
+                    Don't just take our word for it. Hear from traders who have transformed their results with {{ site_settings.site_name|default:'FortuneShade' }}.
                 </p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="flex items-center mb-4">
-                        <img src="/api/placeholder/60/60" alt="Client" class="w-16 h-16 rounded-full">
-                        <div class="ml-4">
-                            <h4 class="font-bold">Michael R.</h4>
-                            <p class="text-sm text-gray-500">Trading for 3 years</p>
-                            <div class="flex mt-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
+                {% if testimonials %}
+                    {% for testimonial in testimonials %}
+                    <div class="testimonial-card animate-on-scroll" {% if forloop.counter > 1 %}style="animation-delay: {{ forloop.counter|add:'-1'|multiply:0.2 }}s;"{% endif %}>
+                        <div class="flex items-center mb-4">
+                            {% if testimonial.image %}
+                            <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="w-16 h-16 rounded-full">
+                            {% else %}
+                            <img src="/api/placeholder/60/60" alt="{{ testimonial.name }}" class="w-16 h-16 rounded-full">
+                            {% endif %}
+                            <div class="ml-4">
+                                <h4 class="font-bold" :class="darkMode ? 'text-white' : ''">{{ testimonial.name }}</h4>
+                                <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">{{ testimonial.position }}</p>
+                                <div class="flex mt-1">
+                                    {% for i in range(testimonial.rating|default:5) %}
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-4">
+                            "{{ testimonial.content }}"
+                        </p>
+                        {% if testimonial.result %}
+                        <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">
+                            Result: {{ testimonial.result }}
+                        </p>
+                        {% endif %}
                     </div>
-                    <p class="text-gray-600">
-                        "Before joining FortuneShade, I was consistently losing money trying to chase trades. After following the system for just 3 months, I've achieved my first profitable quarter ever. The live trading sessions and community support have been game-changers."
-                    </p>
-                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Results:</span>
-                            <span class="text-green-600 font-bold">+42% in 3 months</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.2s;">
-                    <div class="flex items-center mb-4">
-                        <img src="/api/placeholder/60/60" alt="Client" class="w-16 h-16 rounded-full">
-                        <div class="ml-4">
-                            <h4 class="font-bold">Sarah L.</h4>
-                            <p class="text-sm text-gray-500">Trading for 1 year</p>
-                            <div class="flex mt-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
+                    {% endfor %}
+                {% else %}
+                    <div class="testimonial-card animate-on-scroll">
+                        <div class="flex items-center mb-4">
+                            <img src="/api/placeholder/60/60" alt="Client" class="w-16 h-16 rounded-full">
+                            <div class="ml-4">
+                                <h4 class="font-bold" :class="darkMode ? 'text-white' : ''">Sarah M.</h4>
+                                <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">3 years trading</p>
+                                <div class="flex mt-1">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
                             </div>
                         </div>
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-4">
+                            "After trying multiple trading courses and systems, {{ site_settings.site_name|default:'FortuneShade' }} was the first that actually delivered on its promises. The structured education and live trading sessions transformed my approach."
+                        </p>
+                        <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">
+                            Result: +127% account growth in 6 months
+                        </p>
                     </div>
-                    <p class="text-gray-600">
-                        "As a beginner, I was overwhelmed by all the conflicting information online. FortuneShade provided a clear path and structure that helped me understand the markets. The personal mentorship sessions have accelerated my progress tremendously."
-                    </p>
-                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Results:</span>
-                            <span class="text-green-600 font-bold">Consistent 2:1 reward:risk</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.4s;">
-                    <div class="flex items-center mb-4">
-                        <img src="/api/placeholder/60/60" alt="Client" class="w-16 h-16 rounded-full">
-                        <div class="ml-4">
-                            <h4 class="font-bold">David T.</h4>
-                            <p class="text-sm text-gray-500">Trading for 5 years</p>
-                            <div class="flex mt-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
+
+                    <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.2s;">
+                        <div class="flex items-center mb-4">
+                            <img src="/api/placeholder/60/60" alt="Client" class="w-16 h-16 rounded-full">
+                            <div class="ml-4">
+                                <h4 class="font-bold" :class="darkMode ? 'text-white' : ''">David K.</h4>
+                                <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">1 year trading</p>
+                                <div class="flex mt-1">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
                             </div>
                         </div>
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-4">
+                            "As a complete beginner, I was overwhelmed by all the conflicting information online. The step-by-step curriculum at {{ site_settings.site_name|default:'FortuneShade' }} gave me a clear path to follow. The community support is incredible too."
+                        </p>
+                        <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">
+                            Result: Consistent 8-12% monthly returns
+                        </p>
                     </div>
-                    <p class="text-gray-600">
-                        "Even as an experienced trader, I was struggling with consistency. FortuneShade's advanced techniques and psychological training helped me identify and fix the gaps in my approach. My win rate has improved from 45% to 68% since joining."
-                    </p>
-                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Results:</span>
-                            <span class="text-green-600 font-bold">+28% win rate increase</span>
+
+                    <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.4s;">
+                        <div class="flex items-center mb-4">
+                            <img src="/api/placeholder/60/60" alt="Client" class="w-16 h-16 rounded-full">
+                            <div class="ml-4">
+                                <h4 class="font-bold" :class="darkMode ? 'text-white' : ''">Michael R.</h4>
+                                <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">7 years trading</p>
+                                <div class="flex mt-1">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                            </div>
                         </div>
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-4">
+                            "Even as an experienced trader, I was blown away by the quality of analysis in the live trading sessions. The proprietary indicators and risk management strategies have taken my trading to a whole new level."
+                        </p>
+                        <p class="text-sm" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">
+                            Result: Doubled average trade profitability
+                        </p>
                     </div>
-                </div>
+                {% endif %}
             </div>
             
             <div class="mt-12 flex justify-center animate-on-scroll">
