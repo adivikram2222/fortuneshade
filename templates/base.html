@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FortuneShade - Premium Investment & Trading Solutions{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #0f0a23;
+            --secondary: #334155;
+            --accent: #10b981;
+            --accent-dark: #059669;
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --dark: #111827;
+            --dark-lighter: #1f2937;
+            --dark-lightest: #374151;
+            --light: #f9fafb;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--dark);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dark-mode {
+            background-color: var(--dark);
+            color: var(--text-primary);
+        }
+        
+        .light-mode {
+            background-color: var(--light);
+            color: #121212;
+        }
+        
+        .dark-mode .nav-scrolled {
+            background-color: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .light-mode .nav-scrolled {
+            background-color: rgba(249, 250, 251, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark-mode .btn-primary {
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        
+        .dark-mode .card {
+            background-color: var(--dark-lighter);
+            border: 1px solid var(--dark-lightest);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .light-mode .hero-gradient {
+            background: linear-gradient(135deg, #f0f4f8 0%, #d1e5f0 100%);
+            color: #121212;
+        }
+        
+        .light-mode .text-white {
+            color: #121212;
+        }
+        
+        .light-mode .text-gray-300 {
+            color: #4a5568;
+        }
+        
+        .light-mode .bg-gray-800, 
+        .light-mode .bg-gray-900 {
+            background-color: #f0f4f8;
+        }
+        
+        .light-mode .text-gray-400 {
+            color: #4a5568;
+        }
+        
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1280px;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, #14062e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark-mode .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark-mode .hero-content h1 {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(90deg, #fff, #d1d5db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dark-mode .hero-content p {
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), #28df6a);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+        }
+        
+        .dark-mode .btn-primary {
+            background: linear-gradient(45deg, #10b981, #059669);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3), 0 0 20px rgba(16, 185, 129, 0.1);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
+        }
+        
+        .dark-mode .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5), 0 0 30px rgba(16, 185, 129, 0.3);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #28df6a, var(--secondary));
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--secondary);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .neon-effect {
+            text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary);
+        }
+        
+        /* Navigation Styles */
+        #navbar {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(10, 10, 10, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Card Styles */
+        .feature-card, .testimonial-card, .pricing-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #eaeaea;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark-mode .feature-card, 
+        .dark-mode .testimonial-card, 
+        .dark-mode .pricing-card {
+            background-color: var(--dark-lighter);
+            border: 1px solid var(--dark-lightest);
+        }
+        
+        .feature-card:hover, .testimonial-card:hover, .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .dark-mode .feature-card:hover, 
+        .dark-mode .testimonial-card:hover, 
+        .dark-mode .pricing-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-glow);
+            border-color: var(--accent-dark);
+        }
+        
+        .light-mode .feature-card:hover, 
+        .light-mode .testimonial-card:hover, 
+        .light-mode .pricing-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark-mode .feature-card:hover,
+        .dark-mode .testimonial-card:hover,
+        .dark-mode .pricing-card:hover {
+            background-color: var(--card-hover);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0.25rem;
+            background: linear-gradient(90deg, var(--secondary), #28df6a);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* FAQ Styles */
+        .faq-item {
+            border-bottom: 1px solid #eaeaea;
+            margin-bottom: 1rem;
+        }
+        
+        .dark-mode .faq-item {
+            border-color: var(--border-color);
+        }
+        
+        .faq-question {
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            color: var(--secondary);
+        }
+        
+        .faq-answer {
+            padding: 0 1rem 1rem;
+            display: none;
+            color: var(--text-secondary);
+        }
+        
+        .faq-active .faq-answer {
+            display: block;
+        }
+        
+        .faq-active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Background Shapes */
+        .bg-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .stats-container {
+            background: linear-gradient(45deg, var(--primary), #1a0d33);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Animation */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .animate-delay-1 {
+            transition-delay: 0.2s;
+        }
+        
+        .animate-delay-2 {
+            transition-delay: 0.4s;
+        }
+        
+        .animate-delay-3 {
+            transition-delay: 0.6s;
+        }
+        
+        .animate-slide-up {
+            transition-property: transform, opacity;
+            transition-duration: 0.8s;
+            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Shape animations */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            animation: float 30s infinite ease-in-out;
+        }
+        
+        .dark-mode .shape {
+            filter: blur(30px);
+        }
+        
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            right: -100px;
+            background: radial-gradient(circle at center, rgba(29, 185, 84, 0.2), transparent);
+        }
+        
+        .dark-mode .shape-1 {
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.3), transparent);
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.2);
+        }
+        
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            left: 10%;
+            animation-delay: 5s;
+            background: radial-gradient(circle at center, rgba(247, 185, 85, 0.2), transparent);
+        }
+        
+        .dark-mode .shape-2 {
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.15), transparent);
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.1);
+        }
+        
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            bottom: 30%;
+            right: 10%;
+            animation-delay: 10s;
+            background: radial-gradient(circle at center, rgba(104, 85, 224, 0.2), transparent);
+        }
+        
+        .dark-mode .shape-3 {
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.2), transparent);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(10px, 10px) scale(1.05);
+            }
+            50% {
+                transform: translate(5px, 15px) scale(1);
+            }
+            75% {
+                transform: translate(-10px, 5px) scale(0.95);
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+        
+        /* Blog Specific Styles */
+        .blog-card {
+            background-color: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        
+        .dark-mode .blog-card {
+            background-color: var(--dark-lighter);
+            border: 1px solid var(--dark-lightest);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-mode .blog-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-glow);
+            border-color: var(--accent-dark);
+            transform: translateY(-5px);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dark-mode .blog-card:hover {
+            background-color: var(--card-hover);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-meta {
+            display: flex;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .blog-meta > div {
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-meta i {
+            margin-right: 0.25rem;
+        }
+        
+        .blog-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        
+        .blog-excerpt {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        /* Single Blog Page */
+        .blog-hero {
+            position: relative;
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #14062e 100%);
+            margin-bottom: 3rem;
+        }
+        
+        .blog-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .blog-post-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-post-content h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem;
+        }
+        
+        .blog-post-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+        }
+        
+        .blog-post-content ul, .blog-post-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-post-content blockquote {
+            border-left: 4px solid var(--secondary);
+            padding-left: 1.5rem;
+            font-style: italic;
+            margin: 1.5rem 0;
+        }
+        
+        .blog-post-content img {
+            max-width: 100%;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            
+            .blog-hero {
+                padding: 4rem 0;
+            }
+            
+            .blog-post-content {
+                font-size: 1rem;
+            }
+            
+            .blog-post-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .blog-post-content h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body x-data="themeData()" :class="darkMode ? 'dark-mode' : 'light-mode'" class="font-poppins text-lg">
+    <!-- Header -->
+    <header>
+        <div class="bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        
+        <!-- Navbar -->
+        <nav id="navbar" class="fixed top-0 left-0 w-full py-4 z-50 transition-all duration-300">
+            <div class="container mx-auto px-6 flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="{% url 'app:home' %}" class="text-2xl font-extrabold">
+                        <span :class="darkMode ? 'text-white' : 'text-primary'">Fortune</span><span class="text-green-400">Shade</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center">
+                    <div class="nav-links flex items-center space-x-8">
+                        <a href="{% url 'app:home' %}" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300">Home</a>
+                        <a href="{% url 'app:blog_list' %}" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300">Blog</a>
+                        <a href="#" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300">About</a>
+                        <a href="#" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300">Contact</a>
+                        <a href="#" class="btn-primary ml-4">Get Started</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button @click="toggleTheme()" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300">
+                        <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'" class="text-xl"></i>
+                    </button>
+                    <button id="mobileMenuButton" class="md:hidden" :class="darkMode ? 'text-white' : 'text-gray-800'" class="focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full z-50 transform translate-x-full transition-transform duration-500 backdrop-filter backdrop-blur-xl" :class="darkMode ? 'bg-primary' : 'bg-white'">
+            <div class="flex justify-between items-center p-6" :class="darkMode ? 'border-b border-gray-700' : 'border-b border-gray-200'">
+                <div class="text-2xl font-extrabold" :class="darkMode ? 'text-white' : 'text-primary'">
+                    <span :class="darkMode ? 'text-glow' : ''">Fortune</span><span class="text-green-400" :class="darkMode ? 'neon-effect' : ''">Shade</span>
+                </div>
+                <button id="closeMenu" :class="darkMode ? 'text-white' : 'text-gray-800'" class="focus:outline-none">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <nav class="flex flex-col space-y-6">
+                    <a href="{% url 'app:home' %}" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300 text-xl">Home</a>
+                    <a href="{% url 'app:home' %}#features" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300 text-xl">Features</a>
+                    <a href="{% url 'app:home' %}#about" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300 text-xl">About</a>
+                    <a href="{% url 'app:home' %}#testimonials" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300 text-xl">Testimonials</a>
+                    <a href="{% url 'app:home' %}#pricing" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300 text-xl">Pricing</a>
+                    <a href="{% url 'app:blog_list' %}" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300 text-xl">Blog</a>
+                    <a href="{% url 'app:home' %}#faq" :class="darkMode ? 'text-white hover:text-green-400' : 'text-gray-800 hover:text-green-600'" class="transition-colors duration-300 text-xl">FAQ</a>
+                    <a href="#" class="btn-primary inline-block text-center mt-4">Get Started</a>
+                </nav>
+                <div class="mt-8 pt-6" :class="darkMode ? 'border-t border-gray-700' : 'border-t border-gray-200'">
+                    <div class="flex items-center justify-center">
+                        <span :class="darkMode ? 'text-gray-400' : 'text-gray-600'" class="mr-3">Toggle theme:</span>
+                        <button @click="toggleTheme()" class="p-2 rounded-full hover:bg-opacity-20" :class="darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'">
+                            <i :class="darkMode ? 'fas fa-sun text-yellow-400' : 'fas fa-moon text-blue-600'" class="text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-6">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <div class="text-2xl font-extrabold mb-6">
+                        <span>Fortune</span><span class="text-green-400">Shade</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Empowering traders with cutting-edge tools and strategies to navigate the financial markets with confidence.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'app:home' %}" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Home</a></li>
+                        <li><a href="{% url 'app:home' %}#features" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Features</a></li>
+                        <li><a href="{% url 'app:home' %}#about" class="text-gray-400 hover:text-green-400 transition-colors duration-300">About Us</a></li>
+                        <li><a href="{% url 'app:home' %}#testimonials" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Testimonials</a></li>
+                        <li><a href="{% url 'app:home' %}#pricing" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Pricing</a></li>
+                        <li><a href="{% url 'app:blog_list' %}" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Terms of Service</a></li>
+                        <li><a href="{% url 'app:home' %}#faq" class="text-gray-400 hover:text-green-400 transition-colors duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and insights.</p>
+                    <form action="#" method="POST" class="flex flex-col space-y-3">
+                        <input type="email" placeholder="Your email address" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-400">
+                        <button type="submit" class="btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; {% now "Y" %} {{ site_settings.site_name|default:"FortuneShade" }}. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Alpine.js theme state from localStorage if available
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('themeData', () => ({
+                darkMode: localStorage.getItem('darkMode') === 'false' ? false : true,
+                toggleTheme() {
+                    this.darkMode = !this.darkMode;
+                    localStorage.setItem('darkMode', this.darkMode);
+                }
+            }));
+        });
+        
+        // Navbar scroll behavior
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden'); // Prevent scrolling when menu is open
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden'); // Allow scrolling again
+        });
+        
+        // FAQ toggle
+        const faqItems = document.querySelectorAll('.faq-question');
+        
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('faq-active');
+            });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        function checkScroll() {
+            animateElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.9) {
+                    element.classList.add('animated');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+        
+        // Add smooth scrolling to all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                // Check if the href starts with # but also contains more characters
+                if (href.startsWith('#') && href.length > 1) {
+                    e.preventDefault();
+                    
+                    const targetId = href.split('#')[1];
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        mobileMenu.classList.add('translate-x-full');
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

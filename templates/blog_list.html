@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - FortuneShade{% endblock %}
+
+{% block content %}
+<!-- Blog List Section -->
+<section class="blog-hero">
+    <div class="container mx-auto px-6">
+        <div class="blog-hero-content text-center text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">Our Blog</h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto animate-on-scroll" style="animation-delay: 0.2s;">
+                Insights, tips and strategies to help you succeed in the financial markets
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 px-6 bg-white dark:bg-gray-900">
+    <div class="container mx-auto">
+        {% if featured_posts %}
+        <div class="mb-16">
+            <h2 class="text-2xl font-bold mb-8 dark:text-white">Featured Articles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for post in featured_posts %}
+                <div class="blog-card animate-on-scroll">
+                    <div class="blog-image">
+                        {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% else %}
+                        <img src="https://via.placeholder.com/600x400?text=FortuneShade" alt="{{ post.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div>
+                                <i class="far fa-calendar-alt"></i>
+                                {{ post.published_at|date:"F d, Y" }}
+                            </div>
+                            <div>
+                                <i class="far fa-folder"></i>
+                                {{ post.category.name }}
+                            </div>
+                        </div>
+                        <h3 class="blog-title dark:text-white">
+                            <a href="{{ post.get_absolute_url }}" class="hover:text-green-500 transition-colors duration-300">
+                                {{ post.title }}
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt dark:text-gray-400">
+                            {{ post.excerpt|default:post.content|striptags|truncatewords:25 }}
+                        </p>
+                        <a href="{{ post.get_absolute_url }}" class="btn-secondary inline-block text-sm">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-8 dark:text-white">Latest Articles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for post in posts %}
+                <div class="blog-card animate-on-scroll">
+                    <div class="blog-image">
+                        {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% else %}
+                        <img src="https://via.placeholder.com/600x400?text=FortuneShade" alt="{{ post.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div>
+                                <i class="far fa-calendar-alt"></i>
+                                {{ post.published_at|date:"F d, Y" }}
+                            </div>
+                            <div>
+                                <i class="far fa-folder"></i>
+                                {{ post.category.name }}
+                            </div>
+                        </div>
+                        <h3 class="blog-title dark:text-white">
+                            <a href="{{ post.get_absolute_url }}" class="hover:text-green-500 transition-colors duration-300">
+                                {{ post.title }}
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt dark:text-gray-400">
+                            {{ post.excerpt|default:post.content|striptags|truncatewords:25 }}
+                        </p>
+                        <a href="{{ post.get_absolute_url }}" class="btn-secondary inline-block text-sm">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        {% if categories %}
+        <div class="mb-16 dark:text-white">
+            <h3 class="text-xl font-bold mb-4">Categories</h3>
+            <div class="flex flex-wrap gap-4">
+                {% for category in categories %}
+                <a href="{% url 'app:blog_category' category.slug %}" class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-300">
+                    {{ category.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if posts.has_other_pages %}
+        <div class="flex justify-center space-x-2 mt-12">
+            {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}" class="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 dark:text-white">
+                <i class="fas fa-chevron-left mr-2"></i> Previous
+            </a>
+            {% endif %}
+            
+            {% for num in posts.paginator.page_range %}
+                {% if posts.number == num %}
+                <a href="?page={{ num }}" class="px-4 py-2 border border-green-500 bg-green-500 text-white rounded-lg">
+                    {{ num }}
+                </a>
+                {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+                <a href="?page={{ num }}" class="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 dark:text-white">
+                    {{ num }}
+                </a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}" class="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 dark:text-white">
+                Next <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

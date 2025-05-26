@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.meta_title|default:post.title }} - FortuneShade{% endblock %}
+
+{% block content %}
+<!-- Blog Detail Section -->
+<section class="blog-hero">
+    <div class="container mx-auto px-6">
+        <div class="blog-hero-content text-center text-white">
+            <div class="mb-4">
+                <span class="inline-block px-4 py-1 bg-green-500 text-white rounded-full text-sm font-semibold">
+                    {{ post.category.name }}
+                </span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">{{ post.title }}</h1>
+            <div class="flex justify-center items-center space-x-6 text-gray-300 animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="flex items-center">
+                    <i class="far fa-calendar-alt mr-2"></i>
+                    <span>{{ post.published_at|date:"F d, Y" }}</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="far fa-folder mr-2"></i>
+                    <span>{{ post.category.name }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 px-6 bg-white dark:bg-gray-900">
+    <div class="container mx-auto">
+        <div class="max-w-4xl mx-auto">
+            {% if post.featured_image %}
+            <div class="mb-8 rounded-xl overflow-hidden shadow-lg">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-auto">
+            </div>
+            {% endif %}
+            
+            <article class="blog-post-content dark:text-white mb-12">
+                {{ post.content|safe }}
+            </article>
+            
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-8 mt-8">
+                <h3 class="text-2xl font-bold mb-6 dark:text-white">Share This Post</h3>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                        <i class="fab fa-facebook-f mr-2"></i> Facebook
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}" target="_blank" class="px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition-colors duration-300">
+                        <i class="fab fa-twitter mr-2"></i> Twitter
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title }}" target="_blank" class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors duration-300">
+                        <i class="fab fa-linkedin-in mr-2"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        {% if related_posts %}
+        <div class="mt-16">
+            <h3 class="text-2xl font-bold mb-8 dark:text-white">Related Articles</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for related in related_posts %}
+                <div class="blog-card animate-on-scroll">
+                    <div class="blog-image">
+                        {% if related.featured_image %}
+                        <img src="{{ related.featured_image.url }}" alt="{{ related.title }}">
+                        {% else %}
+                        <img src="https://via.placeholder.com/600x400?text=FortuneShade" alt="{{ related.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div>
+                                <i class="far fa-calendar-alt"></i>
+                                {{ related.published_at|date:"F d, Y" }}
+                            </div>
+                            <div>
+                                <i class="far fa-folder"></i>
+                                {{ related.category.name }}
+                            </div>
+                        </div>
+                        <h3 class="blog-title dark:text-white">
+                            <a href="{{ related.get_absolute_url }}" class="hover:text-green-500 transition-colors duration-300">
+                                {{ related.title }}
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt dark:text-gray-400">
+                            {{ related.excerpt|default:related.content|striptags|truncatewords:25 }}
+                        </p>
+                        <a href="{{ related.get_absolute_url }}" class="btn-secondary inline-block text-sm">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

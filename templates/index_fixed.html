@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-gradient text-white pt-32 pb-20 px-6">
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="animate-on-scroll">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                {{ hero.title|default:"Master The Markets With Confidence" }}
+            </h1>
+            <p class="text-xl text-gray-300 mb-8">
+                {{ hero.subtitle|default:"Join FortuneShade for premium trading strategies, expert mentorship, and a supportive community to help you achieve consistent results." }}
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="{{ hero.primary_cta_link|default:'#pricing' }}" class="btn-primary">
+                    {{ hero.primary_cta_text|default:"Get Started Today" }}
+                </a>
+                {% if hero.secondary_cta_text %}
+                <a href="{{ hero.secondary_cta_link }}" class="btn-secondary">
+                    {{ hero.secondary_cta_text }}
+                </a>
+                {% else %}
+                <a href="#features" class="btn-secondary">
+                    Explore Features
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="hidden lg:block relative animate-on-scroll" style="animation-delay: 0.3s;">
+            <img src="https://via.placeholder.com/600x500?text=FortuneShade" alt="Trading Platform" class="rounded-lg shadow-2xl">
+            <div class="absolute -bottom-5 -right-5 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-chart-line text-green-600"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white">97% Success Rate</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">For our active traders</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-16 px-6 bg-white dark:bg-gray-900">
+    <div class="container mx-auto">
+        <div class="stats-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-white animate-on-scroll">
+            {% for stat in statistics %}
+            <div class="text-center p-6">
+                <h3 class="text-4xl font-bold mb-2">{{ stat.value }}</h3>
+                <p class="text-gray-300">{{ stat.label }}</p>
+            </div>
+            {% empty %}
+            <div class="text-center p-6">
+                <h3 class="text-4xl font-bold mb-2">97%</h3>
+                <p class="text-gray-300">Success Rate</p>
+            </div>
+            <div class="text-center p-6">
+                <h3 class="text-4xl font-bold mb-2">12K+</h3>
+                <p class="text-gray-300">Active Members</p>
+            </div>
+            <div class="text-center p-6">
+                <h3 class="text-4xl font-bold mb-2">24/7</h3>
+                <p class="text-gray-300">Expert Support</p>
+            </div>
+            <div class="text-center p-6">
+                <h3 class="text-4xl font-bold mb-2">$25M+</h3>
+                <p class="text-gray-300">Trading Volume</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 px-6 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto">
+        <div class="text-center mb-16 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold dark:text-white">What You'll Get With FortuneShade</h2>
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Our comprehensive platform provides everything you need to succeed in today's volatile markets.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for feature in features %}
+            <div class="feature-card animate-on-scroll dark:bg-gray-700">
+                <div class="w-14 h-14 rounded-full {{ feature.icon_bg_color }} flex items-center justify-center mb-6">
+                    <i class="{{ feature.icon_class }} text-2xl {{ feature.icon_text_color }}"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">{{ feature.title }}</h3>
+                <p class="text-gray-600 dark:text-gray-300">{{ feature.description }}</p>
+            </div>
+            {% empty %}
+            <div class="feature-card animate-on-scroll dark:bg-gray-700">
+                <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-6">
+                    <i class="fas fa-graduation-cap text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">Trading Education</h3>
+                <p class="text-gray-600 dark:text-gray-300">Comprehensive courses and tutorials to help you master trading from the ground up. Perfect for beginners and intermediate traders.</p>
+            </div>
+            <div class="feature-card animate-on-scroll dark:bg-gray-700">
+                <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-6">
+                    <i class="fas fa-signal text-2xl text-blue-600"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">Trade Signals</h3>
+                <p class="text-gray-600 dark:text-gray-300">Daily high-probability trade setups with entry, stop-loss, and take-profit levels to help you make informed trading decisions.</p>
+            </div>
+            <div class="feature-card animate-on-scroll dark:bg-gray-700">
+                <div class="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mb-6">
+                    <i class="fas fa-users text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">Community Support</h3>
+                <p class="text-gray-600 dark:text-gray-300">Join our vibrant community of traders to share insights, ask questions, and learn from each other's experiences.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

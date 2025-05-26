@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.meta_title|default:page.title }} - FortuneShade{% endblock %}
+
+{% block content %}
+<!-- Page Content Section -->
+<section class="blog-hero">
+    <div class="container mx-auto px-6">
+        <div class="blog-hero-content text-center text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">{{ page.title }}</h1>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 px-6 bg-white dark:bg-gray-900">
+    <div class="container mx-auto">
+        <div class="max-w-4xl mx-auto">
+            <article class="blog-post-content dark:text-white mb-12">
+                {{ page.content|safe }}
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

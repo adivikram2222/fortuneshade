@@ -1,884 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FortuneShade - Premium Investment & Trading Solutions</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-        
-        :root {
-            --primary: #0f0a23;
-            --secondary: #1db954;
-            --accent: #f7b955;
-            --light: #f8f9fa;
-            --dark: #0a0a0a;
-            --card-bg: #181828;
-            --card-hover: #242438;
-            --text-primary: #e6e6e6;
-            --text-secondary: #b3b3b3;
-            --border-color: rgba(255, 255, 255, 0.05);
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-primary);
-            background-color: var(--dark);
-            overflow-x: hidden;
-            transition: background-color 0.3s ease;
-        }
-        
-        .hero-gradient {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1142 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-gradient::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232d1b5c' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary);
-            color: #121212;
-            font-weight: 600;
-            padding: 12px 28px;
-            border-radius: 8px;
-            display: inline-block;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.6s;
-            z-index: -1;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px -10px rgba(29, 185, 84, 0.5);
-        }
-        
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--secondary);
-            border: 2px solid var(--secondary);
-            font-weight: 600;
-            padding: 12px 28px;
-            border-radius: 8px;
-            display: inline-block;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn-secondary::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background-color: var(--secondary);
-            transition: all 0.4s;
-            z-index: -1;
-            opacity: 0.1;
-        }
-        
-        .btn-secondary:hover {
-            color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px -10px rgba(29, 185, 84, 0.3);
-        }
-        
-        .btn-secondary:hover::after {
-            height: 100%;
-        }
-        
-        .feature-card {
-            border-radius: 16px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backdrop-filter: blur(5px);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 0;
-            background: linear-gradient(to bottom, var(--secondary), transparent);
-            opacity: 0.15;
-            transition: height 0.5s ease;
-            z-index: -1;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            background-color: var(--card-hover);
-            border-color: rgba(29, 185, 84, 0.2);
-        }
-        
-        .feature-card:hover::before {
-            height: 6px;
-        }
-        
-        .testimonial-card {
-            border-radius: 16px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .testimonial-card::after {
-            content: '"';
-            position: absolute;
-            bottom: -20px;
-            right: 20px;
-            font-size: 150px;
-            color: rgba(29, 185, 84, 0.07);
-            font-family: Georgia, serif;
-            line-height: 1;
-            z-index: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            background-color: var(--card-hover);
-        }
-        
-        .testimonial-card:hover::after {
-            bottom: -10px;
-            color: rgba(29, 185, 84, 0.1);
-        }
-        
-        .accent-border-left {
-            border-left: 4px solid var(--secondary);
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        
-        .accent-border-left::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -4px;
-            width: 4px;
-            height: 0;
-            background: linear-gradient(to bottom, var(--secondary), var(--accent));
-            transition: height 0.8s ease;
-        }
-        
-        .accent-border-left:hover::before {
-            height: 100%;
-        }
-        
-        .pricing-card {
-            border-radius: 16px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(29, 185, 84, 0.05), transparent);
-            z-index: -1;
-            transition: all 1.5s ease;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            background-color: var(--card-hover);
-            border-color: rgba(29, 185, 84, 0.2);
-        }
-        
-        .pricing-card:hover::before {
-            left: 100%;
-        }
-        
-        .pricing-feature {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .pricing-feature i {
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        
-        .pricing-feature:hover i {
-            transform: scale(1.2);
-            color: var(--secondary) !important;
-        }
-        
-        .popular-tag {
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            color: #000;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
-            transform: translateY(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .pricing-card:hover .popular-tag {
-            transform: translateY(-5px);
-        }
-        
-        .navbar {
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            background-color: rgba(10, 10, 10, 0.7);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .navbar.scrolled {
-            background-color: rgba(15, 10, 35, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .stats-container {
-            background: linear-gradient(45deg, var(--primary), #1a0d33);
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stats-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d1b5c' fill-opacity='0.12'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-        
-        .faq-item {
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 0;
-            transition: border-color 0.3s ease;
-        }
-        
-        .faq-item:hover {
-            border-color: var(--secondary);
-        }
-        
-        .faq-question {
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .faq-question i {
-            transition: transform 0.4s ease;
-        }
-        
-        .faq-active .faq-question i {
-            transform: rotate(180deg);
-            color: var(--secondary);
-        }
-        
-        .faq-answer {
-            margin-top: 1rem;
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .faq-active .faq-answer {
-            max-height: 1000px;
-            opacity: 1;
-        }
-        
-        .section-heading {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1rem;
-        }
-        
-        .section-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        .section-heading::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            border-radius: 2px;
-            transition: width 1s ease;
-            z-index: 1;
-        }
-        
-        .section-heading:hover::before {
-            width: 100%;
-        }
-        
-        .floating-element {
-            animation: floating 6s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px) translateX(0px); }
-            25% { transform: translateY(-15px) translateX(5px); }
-            50% { transform: translateY(0px) translateX(10px); }
-            75% { transform: translateY(15px) translateX(5px); }
-            100% { transform: translateY(0px) translateX(0px); }
-        }
-        
-        .pulse-element {
-            animation: pulse 3s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); }
-        }
-        
-        .shimmer-effect {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .shimmer-effect::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to right,
-                transparent 0%,
-                rgba(255, 255, 255, 0.05) 50%,
-                transparent 100%
-            );
-            transform: rotate(30deg);
-            animation: shimmer 6s infinite linear;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) rotate(30deg); }
-        }
-        
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .animate-slide-up {
-            transition-property: transform, opacity;
-            transition-duration: 0.8s;
-            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: translateY(50px);
-            opacity: 0;
-        }
-        
-        .animate-slide-up.animated {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .animate-slide-right {
-            transition-property: transform, opacity;
-            transition-duration: 0.8s;
-            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: translateX(-50px);
-            opacity: 0;
-        }
-        
-        .animate-slide-right.animated {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .animate-slide-left {
-            transition-property: transform, opacity;
-            transition-duration: 0.8s;
-            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: translateX(50px);
-            opacity: 0;
-        }
-        
-        .animate-slide-left.animated {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .animate-scale {
-            transition-property: transform, opacity;
-            transition-duration: 0.8s;
-            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: scale(0.8);
-            opacity: 0;
-        }
-        
-        .animate-scale.animated {
-            transform: scale(1);
-            opacity: 1;
-        }
-        
-        .animate-fade {
-            transition-property: opacity;
-            transition-duration: 1.2s;
-            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0;
-        }
-        
-        .animate-fade.animated {
-            opacity: 1;
-        }
+{% extends "base.html" %}
 
-        .light-mode {
-            color: #333;
-            background-color: #f8f9fa;
-        }
-        
-        .light-mode .navbar.scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-        }
-        
-        .light-mode .feature-card,
-        .light-mode .testimonial-card,
-        .light-mode .pricing-card {
-            background-color: white;
-            border-color: rgba(0, 0, 0, 0.05);
-            color: #333;
-        }
-        
-        .light-mode .feature-card:hover,
-        .light-mode .testimonial-card:hover,
-        .light-mode .pricing-card:hover {
-            background-color: #f9f9f9;
-        }
-        
-        .light-mode .faq-item {
-            border-color: #e2e8f0;
-        }
-        
-        .neon-effect {
-            text-shadow: 0 0 5px rgba(29, 185, 84, 0.5), 0 0 10px rgba(29, 185, 84, 0.3);
-            transition: text-shadow 0.3s ease;
-        }
-        
-        .neon-effect:hover {
-            text-shadow: 0 0 10px rgba(29, 185, 84, 0.7), 0 0 20px rgba(29, 185, 84, 0.5), 0 0 30px rgba(29, 185, 84, 0.3);
-        }
-        
-        .gradient-border {
-            position: relative;
-            border-radius: 16px;
-            background: var(--card-bg);
-            background-clip: padding-box;
-            padding: 2.5rem;
-            border: 1px solid transparent;
-        }
-        
-        .gradient-border::after {
-            content: '';
-            position: absolute;
-            top: -1px;
-            right: -1px;
-            bottom: -1px;
-            left: -1px;
-            z-index: -1;
-            border-radius: 16px;
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
-            opacity: 0.3;
-            transition: opacity 0.5s ease;
-        }
-        
-        .gradient-border:hover::after {
-            opacity: 1;
-        }
+{% block content %}
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #0f0a23;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #27d267;
-        }
-        
-        /* Additional Animations */
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .hover-glow {
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .hover-glow:hover {
-            box-shadow: 0 0 15px rgba(29, 185, 84, 0.5);
-        }
-        
-        /* Background shapes */
-        .bg-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-        
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(29, 185, 84, 0.2), transparent);
-            animation: float 20s infinite ease-in-out;
-        }
-        
-        .shape-1 {
-            width: 500px;
-            height: 500px;
-            top: -250px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-        
-        .shape-2 {
-            width: 300px;
-            height: 300px;
-            top: 50%;
-            right: -150px;
-            animation-delay: 5s;
-        }
-        
-        .shape-3 {
-            width: 200px;
-            height: 200px;
-            bottom: -100px;
-            left: 30%;
-            animation-delay: 10s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
-            25% { transform: translateY(-20px) scale(1.05); opacity: 0.3; }
-            50% { transform: translateY(0) scale(1.1); opacity: 0.2; }
-            75% { transform: translateY(20px) scale(1.05); opacity: 0.1; }
-        }
-        
-        /* Text glow effect */
-        .text-glow {
-            text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
-            transition: text-shadow 0.3s ease;
-        }
-        
-        .text-glow:hover {
-            text-shadow: 0 0 15px rgba(29, 185, 84, 0.8), 0 0 30px rgba(29, 185, 84, 0.4);
-        }
-        
-        /* Animated border */
-        .animated-border {
-            position: relative;
-            padding: 3px;
-        }
-        
-        .animated-border::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 2px solid transparent;
-            border-radius: 16px;
-            background: linear-gradient(45deg, var(--secondary), transparent, var(--accent), transparent) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            animation: border-animation 8s linear infinite;
-        }
-        
-        @keyframes border-animation {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 400% 0%; }
-        }
-        
-        /* Loading dots animation */
-        .loading-dots::after {
-            content: '';
-            animation: loading-dots 1.5s infinite;
-        }
-        
-        @keyframes loading-dots {
-            0% { content: '.'; }
-            33% { content: '..'; }
-            66% { content: '...'; }
-            100% { content: '.'; }
-        }
-        
-        /* Focus animation */
-        .focus-in {
-            animation: focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-        }
-        
-        @keyframes focus-in {
-            0% { filter: blur(12px); opacity: 0; }
-            100% { filter: blur(0px); opacity: 1; }
-        }
-        
-        /* Badge pulse */
-        .badge-pulse {
-            animation: badge-pulse 2s infinite;
-        }
-        
-        @keyframes badge-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(247, 185, 85, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(247, 185, 85, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(247, 185, 85, 0); }
-        }
-        
-        /* Number counter animation */
-        .count-up {
-            animation: count-up 2.5s ease-out forwards;
-        }
-        
-        @keyframes count-up {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Typing cursor effect */
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        
-        /* Card flip effect */
-        .flip-card {
-            perspective: 1000px;
-        }
-        
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-        
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-        }
-        
-        .flip-card-back {
-            transform: rotateY(180deg);
-        }
-    </style>
-</head>
-<body class="dark-mode">
-    <!-- Header -->
-    <header>
-        <div class="bg-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-        </div>
-        <nav class="navbar fixed w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300" id="navbar">
-            <div class="flex items-center">
-                <div class="text-2xl font-extrabold text-white focus-in">
-                    <span class="text-glow">Fortune</span><span class="text-green-400 neon-effect">Shade</span>
-                </div>
-            </div>
-            <div class="hidden md:flex space-x-8 text-white">
-                <a href="#features" class="hover:text-green-400 transition-all relative overflow-hidden group">
-                    Features
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#about" class="hover:text-green-400 transition-all relative overflow-hidden group">
-                    About
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#process" class="hover:text-green-400 transition-all relative overflow-hidden group">
-                    How It Works
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#testimonials" class="hover:text-green-400 transition-all relative overflow-hidden group">
-                    Testimonials
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#pricing" class="hover:text-green-400 transition-all relative overflow-hidden group">
-                    Pricing
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#faq" class="hover:text-green-400 transition-all relative overflow-hidden group">
-                    FAQ
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button class="btn-secondary animate__animated animate__fadeIn" style="animation-delay: 0.3s;">Log In</button>
-                <button class="btn-primary animate__animated animate__fadeIn" style="animation-delay: 0.5s;">Join Now</button>
-                <button id="darkModeToggle" class="p-2 text-white hover-glow rounded-full transition-all duration-300">
-                    <i class="fas fa-sun"></i>
-                </button>
-                <button class="md:hidden text-white hover-glow rounded-full p-2 transition-all duration-300" id="mobileMenuBtn">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </nav>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full bg-primary z-50 transform translate-x-full transition-transform duration-500 backdrop-filter backdrop-blur-xl">
-            <div class="flex justify-between items-center p-6 border-b border-gray-700">
-                <div class="text-2xl font-extrabold text-white">
-                    <span class="text-glow">Fortune</span><span class="text-green-400 neon-effect">Shade</span>
-                </div>
-                <button id="closeMenu" class="text-white hover:text-green-400 transition-all p-2 rounded-full bg-opacity-20 bg-white">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="flex flex-col p-6 space-y-6 text-white text-lg">
-                <a href="#features" class="hover:text-green-400 transition-all py-2 border-b border-gray-700 flex justify-between items-center group">
-                    <span>Features</span>
-                    <i class="fas fa-chevron-right text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                </a>
-                <a href="#about" class="hover:text-green-400 transition-all py-2 border-b border-gray-700 flex justify-between items-center group">
-                    <span>About</span>
-                    <i class="fas fa-chevron-right text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                </a>
-                <a href="#process" class="hover:text-green-400 transition-all py-2 border-b border-gray-700 flex justify-between items-center group">
-                    <span>How It Works</span>
-                    <i class="fas fa-chevron-right text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                </a>
-                <a href="#testimonials" class="hover:text-green-400 transition-all py-2 border-b border-gray-700 flex justify-between items-center group">
-                    <span>Testimonials</span>
-                    <i class="fas fa-chevron-right text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                </a>
-                <a href="#pricing" class="hover:text-green-400 transition-all py-2 border-b border-gray-700 flex justify-between items-center group">
-                    <span>Pricing</span>
-                    <i class="fas fa-chevron-right text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                </a>
-                <a href="#faq" class="hover:text-green-400 transition-all py-2 border-b border-gray-700 flex justify-between items-center group">
-                    <span>FAQ</span>
-                    <i class="fas fa-chevron-right text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                </a>
-                <div class="pt-6 border-t border-gray-700 flex flex-col space-y-4 mt-4">
-                    <button class="btn-secondary w-full flex justify-center items-center">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Log In
-                    </button>
-                    <button class="btn-primary w-full flex justify-center items-center">
-                        <i class="fas fa-user-plus mr-2"></i> Join Now
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <!-- Hero Section -->
     <section class="hero-gradient text-white pt-32 pb-20 px-6">
@@ -1443,7 +566,7 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-20 px-6 bg-white">
+    <section id="pricing" class="py-20 px-6" :class="darkMode ? 'bg-gray-900' : 'bg-white'">
         <div class="container mx-auto">
             <div class="text-center mb-16 animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold">Investment Plans</h2>
@@ -1455,10 +578,10 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="pricing-card animate-on-scroll">
                     <h3 class="text-2xl font-bold mb-2">Monthly</h3>
-                    <p class="text-gray-600 mb-6">Perfect for trying our system</p>
+                    <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="mb-6">Perfect for trying our system</p>
                     <div class="flex items-end mb-6">
                         <span class="text-4xl font-bold">$197</span>
-                        <span class="text-gray-600 ml-2">/month</span>
+                        <span :class="darkMode ? 'text-gray-300' : 'text-gray-600'" class="ml-2">/month</span>
                     </div>
                     <ul class="mb-8">
                         <li class="pricing-feature">
@@ -1595,83 +718,83 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-20 px-6 bg-gray-50">
+    <section id="faq" class="py-20 px-6" :class="darkMode ? 'bg-gray-900' : 'bg-gray-50'">
         <div class="container mx-auto">
             <div class="text-center mb-16 animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
-                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                <p class="mt-4 text-lg max-w-2xl mx-auto" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                     Find answers to common questions about FortuneShade. Still have questions? Contact our support team.
                 </p>
             </div>
             
             <div class="max-w-3xl mx-auto animate-on-scroll">
-                <div class="faq-item">
+                <div class="faq-item" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
                     <div class="faq-question">
-                        <span>Is FortuneShade suitable for complete beginners?</span>
-                        <i class="fas fa-chevron-down text-gray-400"></i>
+                        <span :class="darkMode ? 'text-white' : 'text-gray-800'">Is FortuneShade suitable for complete beginners?</span>
+                        <i class="fas fa-chevron-down" :class="darkMode ? 'text-gray-400' : 'text-gray-500'"></i>
                     </div>
                     <div class="faq-answer">
-                        <p class="text-gray-600">
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                             Absolutely! FortuneShade is designed to support traders at all experience levels. Our comprehensive curriculum starts with the fundamentals and gradually progresses to advanced concepts. Complete beginners receive extra support through our new trader onboarding program and dedicated beginner-friendly community channels.
                         </p>
                     </div>
                 </div>
                 
-                <div class="faq-item">
+                <div class="faq-item" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
                     <div class="faq-question">
-                        <span>How much capital do I need to start trading?</span>
-                        <i class="fas fa-chevron-down text-gray-400"></i>
+                        <span :class="darkMode ? 'text-white' : 'text-gray-800'">How much capital do I need to start trading?</span>
+                        <i class="fas fa-chevron-down" :class="darkMode ? 'text-gray-400' : 'text-gray-500'"></i>
                     </div>
                     <div class="faq-answer">
-                        <p class="text-gray-600">
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                             We recommend starting with at least $5,000 for futures trading and $2,000 for forex trading to properly implement our risk management principles. However, new members can begin with our paper trading simulator until they're confident in their abilities and have sufficient capital. We emphasize capital preservation and sustainable growth rather than risky strategies.
                         </p>
                     </div>
                 </div>
                 
-                <div class="faq-item">
+                <div class="faq-item" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
                     <div class="faq-question">
-                        <span>What markets do you focus on?</span>
-                        <i class="fas fa-chevron-down text-gray-400"></i>
+                        <span :class="darkMode ? 'text-white' : 'text-gray-800'">What markets do you focus on?</span>
+                        <i class="fas fa-chevron-down" :class="darkMode ? 'text-gray-400' : 'text-gray-500'"></i>
                     </div>
                     <div class="faq-answer">
-                        <p class="text-gray-600">
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                             FortuneShade specializes in futures trading (including ES, NQ, CL, GC), major forex pairs, and select commodities. Our methodology is market-agnostic and can be applied across different assets, but we focus on liquid markets with ample trading opportunities. The principles you'll learn can be applied to other markets as well.
                         </p>
                     </div>
                 </div>
                 
-                <div class="faq-item">
+                <div class="faq-item" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
                     <div class="faq-question">
-                        <span>What times are the live trading sessions?</span>
-                        <i class="fas fa-chevron-down text-gray-400"></i>
+                        <span :class="darkMode ? 'text-white' : 'text-gray-800'">What times are the live trading sessions?</span>
+                        <i class="fas fa-chevron-down" :class="darkMode ? 'text-gray-400' : 'text-gray-500'"></i>
                     </div>
                     <div class="faq-answer">
-                        <p class="text-gray-600">
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                             We host live trading sessions during the most active market hours: 8:30 AM - 11:30 AM ET (New York Open) and 2:30 AM - 5:30 AM ET (London Open). All sessions are recorded and available for replay in our members' area, so you can learn and benefit regardless of your time zone. Additionally, we provide daily market analysis and trade setup videos for Asian sessions.
                         </p>
                     </div>
                 </div>
                 
-                <div class="faq-item">
+                <div class="faq-item" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
                     <div class="faq-question">
-                        <span>How long does it typically take to become profitable?</span>
-                        <i class="fas fa-chevron-down text-gray-400"></i>
+                        <span :class="darkMode ? 'text-white' : 'text-gray-800'">How long does it typically take to become profitable?</span>
+                        <i class="fas fa-chevron-down" :class="darkMode ? 'text-gray-400' : 'text-gray-500'"></i>
                     </div>
                     <div class="faq-answer">
-                        <p class="text-gray-600">
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                             While individual results vary based on commitment, learning pace, and psychological factors, most dedicated members start seeing consistent results within 3-6 months of following our program diligently. Trading is a skill that requires practice and discipline. We focus on long-term development rather than promoting unrealistic "get-rich-quick" expectations. Our most successful members commit to daily learning and deliberate practice.
                         </p>
                     </div>
                 </div>
                 
-                <div class="faq-item">
+                <div class="faq-item" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
                     <div class="faq-question">
-                        <span>Can I cancel my membership if it's not right for me?</span>
-                        <i class="fas fa-chevron-down text-gray-400"></i>
+                        <span :class="darkMode ? 'text-white' : 'text-gray-800'">Can I cancel my membership if it's not right for me?</span>
+                        <i class="fas fa-chevron-down" :class="darkMode ? 'text-gray-400' : 'text-gray-500'"></i>
                     </div>
                     <div class="faq-answer">
-                        <p class="text-gray-600">
+                        <p :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                             Yes, you can cancel your membership at any time. Monthly and quarterly plans automatically renew until canceled. To cancel, simply log into your account dashboard and click the "Cancel Membership" button, or contact our support team. We offer a 14-day money-back guarantee for new members if you feel our program isn't the right fit for you.
                         </p>
                     </div>
@@ -1679,7 +802,7 @@
             </div>
             
             <div class="mt-12 text-center animate-on-scroll">
-                <p class="text-lg text-gray-600 mb-4">
+                <p class="text-lg mb-4" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">
                     Still have questions?
                 </p>
                 <button class="btn-primary">
@@ -1732,14 +855,14 @@
                 </div>
                 <div class="relative animate-on-scroll">
                     <img src="/api/placeholder/540/400" alt="Trading Platform" class="rounded-lg shadow-2xl">
-                    <div class="absolute -bottom-5 -right-5 bg-white p-4 rounded-lg shadow-lg">
+                    <div class="absolute -bottom-5 -right-5 p-4 rounded-lg shadow-lg" :class="darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                <i class="fas fa-shield-alt text-blue-600"></i>
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center" :class="darkMode ? 'bg-blue-900' : 'bg-blue-100'">
+                                <i class="fas fa-shield-alt" :class="darkMode ? 'text-blue-400' : 'text-blue-600'"></i>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm font-semibold text-gray-800">30-Day Guarantee</p>
-                                <p class="text-xs text-gray-600">Try risk-free for 30 days</p>
+                                <p class="text-sm font-semibold" :class="darkMode ? 'text-white' : 'text-gray-800'">30-Day Guarantee</p>
+                                <p class="text-xs" :class="darkMode ? 'text-gray-300' : 'text-gray-600'">Try risk-free for 30 days</p>
                             </div>
                         </div>
                     </div>
@@ -1748,174 +871,5 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-16 px-6">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-                <div>
-                    <div class="text-2xl font-extrabold mb-6">
-                        <span>Fortune</span><span class="text-green-400">Shade</span>
-                    </div>
-                    <p class="text-gray-400 mb-6">
-                        Premium trading education, live mentorship, and a supportive community to help you achieve consistent trading success.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-6">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#testimonials" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
-                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-                        <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-6">Resources</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Free Trading Guide</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Market Analysis</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Trading Calculator</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Economic Calendar</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Trading Glossary</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-6">Contact Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope text-green-400 mr-3"></i>
-                            <a href="mailto:support@fortuneshade.com" class="text-gray-400 hover:text-white transition-colors">support@fortuneshade.com</a>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone text-green-400 mr-3"></i>
-                            <a href="tel:+1234567890" class="text-gray-400 hover:text-white transition-colors">+1 (234) 567-890</a>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-map-marker-alt text-green-400 mr-3"></i>
-                            <span class="text-gray-400">New York, NY, USA</span>
-                        </li>
-                    </ul>
-                    <div class="mt-6">
-                        <h4 class="font-bold mb-3">Subscribe to Our Newsletter</h4>
-                        <div class="flex">
-                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg w-full focus:outline-none text-gray-800">
-                            <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg transition-colors">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm">
-                    &copy; 2025 FortuneShade. All rights reserved.
-                </p>
-                <div class="mt-4 md:mt-0 flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Cookie Policy</a>
-                </div>
-            </div>
-            <div class="mt-8 text-center text-gray-500 text-xs">
-                <p>Trading involves risk. Past performance is not indicative of future results.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Navbar scroll behavior
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const closeMenu = document.getElementById('closeMenu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('translate-x-full');
-        });
-        
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.add('translate-x-full');
-        });
-        
-        // FAQ accordion
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                faqItem.classList.toggle('faq-active');
-                
-                const icon = question.querySelector('i');
-                if (faqItem.classList.contains('faq-active')) {
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                } else {
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
-            });
-        });
-        
-        // Dark mode toggle
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const darkModeIcon = darkModeToggle.querySelector('i');
-        
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            
-            if (body.classList.contains('dark-mode')) {
-                darkModeIcon.classList.remove('fa-moon');
-                darkModeIcon.classList.add('fa-sun');
-            } else {
-                darkModeIcon.classList.remove('fa-sun');
-                darkModeIcon.classList.add('fa-moon');
-            }
-        });
-        
-        // Animation on scroll
-        const animatedElements = document.querySelectorAll('.animate-on-scroll');
-        
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        animatedElements.forEach(element => {
-            observer.observe(element);
-        });
-    </script>
-</body>
-</html>
+    
+{% endblock %}
